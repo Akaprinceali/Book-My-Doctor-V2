@@ -1,5 +1,7 @@
 package com.tekpyramid.DoctorFlow.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tekpyramid.DoctorFlow.Entity.Doctor;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,11 +19,14 @@ public class LeaveRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int leaveId;
+
     private LocalDate fromDate;
     private LocalDate toDate;
     private String reason;
-    private String Status;
+    private String status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    @JsonIgnore
     private Doctor doctor;
 }

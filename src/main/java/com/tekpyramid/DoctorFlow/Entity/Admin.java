@@ -1,5 +1,6 @@
 package com.tekpyramid.DoctorFlow.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,12 +14,22 @@ import lombok.*;
 public class Admin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int adminId;
-    private String adminName;
-    private  String adminPassword;
+    private String adminId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    private String adminName;
+    private String adminPassword;
+
+    // ✅ Explicitly define the join column for Role
+    @ManyToOne
+    @JoinColumn(name = "role_id")// foreign key column in admin table
+    @JsonIgnore
     private Role role;
 
+    // ✅ Proper one-to-one link with AppUser
+    @OneToOne
+    @JoinColumn(name = "app_user_id", referencedColumnName = "appUserId")
+    @JsonIgnore
+    private AppUser appUser;
+
+    private String status;
 }

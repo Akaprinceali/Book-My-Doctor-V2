@@ -3,11 +3,17 @@ package com.tekpyramid.DoctorFlow.Repository;
 import com.tekpyramid.DoctorFlow.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
+    boolean existsByUserName(String userName);
+    Optional<User> findByUserName(String userName);
 
-    Optional<User> findByEmail(String email);
+
+    // Search users (if needed in future)
+    List<User> findByUserNameContainingIgnoreCase(String keyword);
 
 
 }
+

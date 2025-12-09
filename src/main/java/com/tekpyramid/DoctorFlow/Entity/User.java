@@ -30,4 +30,9 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Appointment> appointentList;
 
+    @OneToOne
+    @JoinColumn(name = "app_user_id")
+    private AppUser appUser;
+
+
 }
